@@ -1,12 +1,12 @@
-# 工程八原则（Engineering Eight Principles）
+<p align="center">
+  <img src="./hero-banner.svg" alt="工程八原则 - Engineering Eight Principles" width="100%">
+</p>
 
-> 从大型系统工程实践中提炼的软件工程全生命周期方法论。
->
-> **核心思想：多线并行推进，边界清晰可控，以交付推动共识，以共识稳定交付。**
-
-[![Version](https://img.shields.io/badge/version-1.2.0-blue)](https://github.com)
-[![QoderWork Skill](https://img.shields.io/badge/QoderWork-Skill-d3192a)](https://docs.qoder.com/qoderwork/introduction)
-[![License](https://img.shields.io/badge/license-MIT-green)](./LICENSE)
+<p align="center">
+  <a href="https://github.com"><img src="https://img.shields.io/badge/version-1.2.0-blue" alt="Version"></a>
+  <a href="https://docs.qoder.com/qoderwork/introduction"><img src="https://img.shields.io/badge/QoderWork-Skill-d3192a" alt="QoderWork Skill"></a>
+  <a href="./LICENSE"><img src="https://img.shields.io/badge/license-MIT-green" alt="License"></a>
+</p>
 
 ---
 
@@ -26,7 +26,7 @@
 
 | # | 代号 | 工程含义 | 一句话 |
 |---|------|---------|--------|
-| 1 | **三八线** | 服务间必须有清晰的接口契约和隔离边界 | 服务之间划“分界线”——清晰的契约，各自独立演进 |
+| 1 | **三八线** | 服务间必须有清晰的接口契约和隔离边界 | 服务之间划"分界线"——清晰的契约，各自独立演进 |
 | 2 | **侧翼登陆** | 找到改变项目全局走向的杠杆点 | 找到那个翻转全局的技术决策，集中资源打穿 |
 | 3 | **长津湖** | 极端约束下，集中力量攻克关键模块 | 选完切入点后，把优势资源集中在最关键的局部 |
 | 4 | **反绞杀** | 核心链路多路冗余：熔断、降级、自动恢复 | 核心管线必须有多路备份——熔断、降级、自愈 |
@@ -71,8 +71,8 @@ flowchart LR
 | 团队规模 | 建议路径 |
 |---------|----------|
 | 5 人以上 | 六阶段全流程 |
-| 3–5 人 | 合并阶段 2+3，合并阶段 4+5 |
-| 2–3 人 | 只用原则 1+5+6，跳过正式阶段流程 |
+| 3-5 人 | 合并阶段 2+3，合并阶段 4+5 |
+| 2-3 人 | 只用原则 1+5+6，跳过正式阶段流程 |
 | 单人 / 不足 2 周 | 方法论成本超过项目本身——不推荐 |
 
 ---
@@ -88,6 +88,8 @@ engineering-eight-principles/
 ├── dashboard-template.html         # HTML 诊断仪表盘
 ├── example-payment-platform.md     # 示例：支付中台 v2.0 迁移
 ├── example-diagnostic-report.md    # 示例：后台重构诊断报告
+├── hero-banner.svg                 # 宣传图
+├── korean-war-comprehensive-guide.md # 朝鲜战争参考资料
 ├── README.md                       # 本文件
 └── LICENSE
 ```
@@ -108,6 +110,10 @@ engineering-eight-principles/
 
 **example-diagnostic-report.md** 演示了一份游戏配置后台重构的完整诊断报告，包含八原则扫描和风险矩阵。
 
+**hero-banner.svg** 仓库宣传图，SVG 矢量格式，可在 GitHub 上直接渲染。
+
+**korean-war-comprehensive-guide.md** 朝鲜战争全面资料汇编——本方法论的历史灵感来源。
+
 ---
 
 ## 使用模式
@@ -116,10 +122,10 @@ engineering-eight-principles/
 
 | 模式 | 触发方式 | 输出产物 |
 |------|---------|----------|
-| **现状诊断** | “帮我看看这个项目” / “项目健康度” | Markdown 诊断报告 |
-| **阶段规划** | “帮我规划这个项目” / “执行方案” | Markdown 执行方案 |
-| **项目仪表盘** | “给我全局视图” / “项目状态” | HTML 诊断报告 |
-| **阶段导航** | “下一步该做什么” / “下一阶段” | 阶段评估 + 行动建议 |
+| **现状诊断** | "帮我看看这个项目" / "项目健康度" | Markdown 诊断报告 |
+| **阶段规划** | "帮我规划这个项目" / "执行方案" | Markdown 执行方案 |
+| **项目仪表盘** | "给我全局视图" / "项目状态" | HTML 诊断报告 |
+| **阶段导航** | "下一步该做什么" / "下一阶段" | 阶段评估 + 行动建议 |
 
 ### 快速开始
 
@@ -141,7 +147,7 @@ engineering-eight-principles/
 cp -R engineering-eight-principles/ ~/.qoderwork/skills/parallel-front/
 ```
 
-安装后即可在 QoderWork 中使用。触发关键词：“三八线协议”、“parallel-front”、“项目诊断”、“执行方案”、“工程八原则”等。
+安装后即可在 QoderWork 中使用。触发关键词："三八线协议"、"parallel-front"、"项目诊断"、"执行方案"、"工程八原则"等。
 
 ### 独立使用
 
@@ -158,7 +164,7 @@ window.__EIGHT_PRINCIPLES_DATA__ = {
   projectName: "我的项目",
   overallScore: 72,           // 0-100
   overallStatus: "warn",      // ok | warn | alert
-  currentPhase: 2,            // 0-indexed（显示为  3）
+  currentPhase: 2,            // 0-indexed（显示为阶段 3）
   phases: [
     { name: "立项研判", status: "completed" },
     { name: "迭代冲刺", status: "completed" },
@@ -187,7 +193,7 @@ window.__EIGHT_PRINCIPLES_DATA__ = {
 };
 ```
 
-**评分阈值：** `score >= 75` → ok（绿色），`55–74` → warn（黄色），`< 55` → alert（红色）。
+**评分阈值：** `score >= 75` → ok（绿色），`55-74` → warn（黄色），`< 55` → alert（红色）。
 
 缺失字段自动回退到内置默认值——模板不会渲染 `undefined`。
 
