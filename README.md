@@ -127,7 +127,7 @@ engineering-eight-principles/
 
  **项目是新立项还是进行中？** — 新立项从阶段 0 开始，进行中先做现状诊断。
 2. **你需要什么？** — 诊断、规划、可视化还是导航。
-3.  1. **当前最大痛点是什么？** — 用于优先扫描相关原则。
+3. **当前最大痛点是什么？** — 用于优先扫描相关原则。
 
 ---
 
@@ -141,7 +141,7 @@ engineering-eight-principles/
 cp -R engineering-eight-principles/ ~/.qoderwork/skills/parallel-front/
 ```
 
-安装后即可在 QoderWork 中使用。触发关键词：“工程八原则”等parallel-front”、“项目诊断”、“执行方案”等。
+安装后即可在 QoderWork 中使用。触发关键词：“三八线协议”、“parallel-front”、“项目诊断”、“执行方案”、“工程八原则”等。
 
 ### 独立使用
 
@@ -187,7 +187,7 @@ window.__EIGHT_PRINCIPLES_DATA__ = {
 };
 ```
 
-**评分阈值：** `score >= 75` → ok（绿色），55–74` → warn（黄色），`< 55` → alert（红色）。
+**评分阈值：** `score >= 75` → ok（绿色），`55–74` → warn（黄色），`< 55` → alert（红色）。
 
 缺失字段自动回退到内置默认值——模板不会渲染 `undefined`。
 
