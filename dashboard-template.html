@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>三八线协议 — 项目诊断仪表盘</title>
+<style>
+  :root {
+    --brand: #d3192a;
+    --brand-light: #ff4d5e;
+    --bg-primary: #0f1117;
+    --bg-card: #1a1d27;
+    --bg-hover: #252833;
+    --text-primary: #e8eaed;
+    --text-secondary: #9aa0a6;
+    --text-muted: #5f6368;
+    --green: #34a853;
+    --yellow: #fbbc04;
+    --red: #ea4335;
+    --blue: #4285f4;
+    --border: #2d3140;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    min-height: 100vh;
+    padding: 24px;
+  }
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 32px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .header h1 {
+    font-size: 24px;
+    font-weight: 600;
+    letter-spacing: 1px;
+  }
+  .header h1 span { color: var(--brand); }
+  .header .meta { color: var(--text-secondary); font-size: 14px; }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 20px;
+    margin-bottom: 32px;
+  }
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    transition: border-color 0.2s;
+  }
+  .card:hover { border-color: var(--brand); }
+  .card-title {
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--text-muted);
+    margin-bottom: 16px;
+  }
+  .phase-bar {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 24px;
+  }
+  .phase-bar .phase {
+    flex: 1;
+    height: 8px;
+    border-radius: 4px;
+    background: var(--border);
+    position: relative;
+  }
+  .phase-bar .phase.completed { background: var(--green); }
+  .phase-bar .phase.current { background: var(--brand); animation: pulse 2s infinite; }
+  .phase-bar .phase.risk { background: var(--yellow); }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+  }
+  .phase-labels {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 8px;
+  }
+  .phase-labels span {
+    flex: 1;
+    font-size: 10px;
+    text-align: center;
+    color: var(--text-muted);
+  }
+  .phase-labels span.current { color: var(--brand); font-weight: 600; }
+  .radar-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 16px;
+  }
+  .radar-container canvas { max-width: 280px; max-height: 280px; }
+  .principle-list { list-style: none; }
+  .principle-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .principle-item:last-child { border-bottom: none; }
+  .principle-item .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .dot.green { background: var(--green); }
+  .dot.yellow { background: var(--yellow); }
+  .dot.red { background: var(--red); }
+  .principle-item .name {
+    font-size: 14px;
+    flex: 1;
+  }
+  .principle-item .code {
+    font-size: 11px;
+    color: var(--text-muted);
+    font-family: 'SF Mono', 'Fira Code', monospace;
+  }
+  .metric-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  .metric {
+    text-align: center;
+    padding: 12px;
+    background: var(--bg-hover);
+    border-radius: 8px;
+  }
+  .metric .value {
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+  .metric .value.green { color: var(--green); }
+  .metric .value.yellow { color: var(--yellow); }
+  .metric .value.red { color: var(--red); }
+  .metric .label {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .risk-list { list-style: none; }
+  .risk-item {
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .risk-item:last-child { border-bottom: none; }
+  .risk-item .risk-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+  .risk-item .risk-tag {
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+  .risk-tag.high { background: rgba(234,67,53,0.15); color: var(--red); }
+  .risk-tag.medium { background: rgba(251,188,4,0.15); color: var(--yellow); }
+  .risk-tag.low { background: rgba(52,168,83,0.15); color: var(--green); }
+  .risk-item .risk-name { font-size: 14px; }
+  .risk-item .risk-desc { font-size: 12px; color: var(--text-secondary); }
+  .actions { list-style: none; }
+  .actions li {
+    padding: 10px 12px;
+    margin-bottom: 8px;
+    background: var(--bg-hover);
+    border-radius: 8px;
+    border-left: 3px solid var(--brand);
+    font-size: 13px;
+    line-height: 1.5;
+  }
+  .actions li .action-priority {
+    font-size: 10px;
+    color: var(--brand);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: block;
+    margin-bottom: 2px;
+  }
+  .footer {
+    text-align: center;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    color: var(--text-muted);
+    font-size: 12px;
+  }
+  .full-width { grid-column: 1 / -1; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1><span>📊</span> 三八线协议 — <span id="projectName">项目诊断</span></h1>
+  <div class="meta">
+    <span id="assessDate">--</span> · Phase <span id="currentPhase">-</span> · <span id="phaseName">--</span>
+  </div>
+</div>
+
+<!-- Phase Progress -->
+<div class="card full-width" style="margin-bottom: 24px;">
+  <div class="card-title">阶段进程</div>
+  <div class="phase-labels" id="phaseLabels"></div>
+  <div class="phase-bar" id="phaseBar"></div>
+</div>
+
+<div class="grid">
+  <!-- Radar Chart: 8 Principles -->
+  <div class="card">
+    <div class="card-title">八大原则雷达</div>
+    <div class="radar-container">
+      <canvas id="radarCanvas" width="280" height="280"></canvas>
+    </div>
+  </div>
+
+  <!-- Principle Status List -->
+  <div class="card">
+    <div class="card-title">原则健康度</div>
+    <ul class="principle-list" id="principleList"></ul>
+  </div>
+
+  <!-- Key Metrics -->
+  <div class="card">
+    <div class="card-title">关键指标</div>
+    <div class="metric-grid" id="metricGrid"></div>
+  </div>
+
+  <!-- Risk Matrix -->
+  <div class="card">
+    <div class="card-title">风险矩阵</div>
+    <ul class="risk-list" id="riskList"></ul>
+  </div>
+</div>
+
+<!-- Action Items -->
+<div class="card" style="margin-bottom: 24px;">
+  <div class="card-title">行动建议</div>
+  <ul class="actions" id="actionList"></ul>
+</div>
+
+<div class="footer">
+  三八线协议 Parallel Front Protocol · 项目诊断仪表盘 · <span id="footerDate">--</span>
+</div>
+
+<script>
+// === DATA SCHEMA ===
+// Inject custom data via: window.__PARALLEL_FRONT_DATA__ = { ... }
+//
+// Required fields:
+//   projectName: string          — Project name displayed in header
+//   date: string                 — Assessment date (YYYY-MM-DD)
+//   currentPhase: number (0-5)   — Index of the current active phase
+//   phases: Array<Phase>         — Exactly 6 phases, each with:
+//     .name: string              — Phase display name
+//     .status: string            — "completed" | "current" | "pending" | "risk"
+//   principles: Array<Principle> — Exactly 8 principles, each with:
+//     .name: string              — Principle short name (Chinese)
+//     .code: string              — English code name
+//     .score: number (0-100)     — Health score for radar chart
+//     .status: string            — "green" | "yellow" | "red"
+//   metrics: Array<Metric>       — 3-6 key metrics, each with:
+//     .label: string             — Metric label
+//     .value: string             — Display value (e.g. "92%", "中")
+//     .color: string             — "green" | "yellow" | "red"
+//   risks: Array<Risk>           — 1-5 risks, each with:
+//     .name: string              — Risk name
+//     .level: string             — "high" | "medium" | "low"
+//     .desc: string              — Risk description
+//   actions: Array<Action>       — 2-5 action items, each with:
+//     .priority: string          — Priority label (e.g. "立即执行")
+//     .text: string              — Action description
+//
+// === DATA INJECTION POINT ===
+const DEFAULT_DATA = {
+  projectName: "示例项目",
+  date: "2026-07-04",
+  currentPhase: 2,  // 0-5
+  phases: [
+    { name: "立项研判", status: "completed" },
+    { name: "迭代冲刺", status: "completed" },
+    { name: "反绞杀",   status: "current" },
+    { name: "上甘岭",   status: "pending" },
+    { name: "边打边谈", status: "pending" },
+    { name: "金城", status: "pending" }
+  ],
+  principles: [
+    { name: "三八线", code: "Boundary Contract", score: 85, status: "green" },
+    { name: "侧翼登陆", code: "Leverage Point", score: 70, status: "yellow" },
+    { name: "长津湖",   code: "Focused Execution",      score: 90, status: "green" },
+    { name: "反绞杀",   code: "Resilience", score: 55, status: "red" },
+    { name: "上甘岭",   code: "Quality Baseline", score: 80, status: "green" },
+    { name: "边打边谈", code: "Continuous Delivery",   score: 65, status: "yellow" },
+    { name: "金城", code: "Launch Readiness",     score: 40, status: "yellow" },
+    { name: "代价意识", code: "CostAwareness", score: 60, status: "yellow" }
+  ],
+  metrics: [
+    { label: "迭代速度", value: "92%", color: "green" },
+    { label: "质量指数", value: "87", color: "green" },
+    { label: "风险等级", value: "中", color: "yellow" },
+    { label: "团队士气", value: "78", color: "green" },
+    { label: "技术债务", value: "23", color: "yellow" },
+    { label: "上线进度", value: "45%", color: "yellow" }
+  ],
+  risks: [
+    { name: "支付链路单点故障", level: "high", desc: "核心支付链路无降级方案" },
+    { name: "第三方API不稳定", level: "medium", desc: "上游接口P99延迟波动大" },
+    { name: "测试覆盖不足", level: "medium", desc: "核心模块覆盖率低于70%" }
+  ],
+  actions: [
+    { priority: "立即执行", text: "支付链路增加备用通道，消除单点故障" },
+    { priority: "本周跟进", text: "第三方API增加超时重试和本地缓存降级" },
+    { priority: "持续关注", text: "核心模块测试覆盖率提升至85%以上" }
+  ]
+};
+
+const data = (typeof window !== 'undefined' && window.__PARALLEL_FRONT_DATA__) || DEFAULT_DATA;
+
+// === RENDER ===
+function render() {
+  // Header
+  document.getElementById('projectName').textContent = data.projectName + ' 诊断';
+  document.getElementById('assessDate').textContent = data.date;
+  document.getElementById('currentPhase').textContent = data.currentPhase;
+  document.getElementById('phaseName').textContent = data.phases[data.currentPhase]?.name || '--';
+  document.getElementById('footerDate').textContent = data.date;
+
+  // Phase bar
+  const labelsEl = document.getElementById('phaseLabels');
+  const barEl = document.getElementById('phaseBar');
+  data.phases.forEach((p, i) => {
+    const lbl = document.createElement('span');
+    lbl.textContent = p.name;
+    if (i === data.currentPhase) lbl.classList.add('current');
+    labelsEl.appendChild(lbl);
+
+    const div = document.createElement('div');
+    div.classList.add('phase');
+    if (p.status === 'completed') div.classList.add('completed');
+    if (p.status === 'current') div.classList.add('current');
+    if (p.status === 'risk') div.classList.add('risk');
+    barEl.appendChild(div);
+  });
+
+  // Principles list
+  const listEl = document.getElementById('principleList');
+  data.principles.forEach(p => {
+    const li = document.createElement('li');
+    li.className = 'principle-item';
+    li.innerHTML = `<span class="dot ${p.status}"></span><span class="name">${p.name}</span><span class="code">${p.score}/100</span>`;
+    listEl.appendChild(li);
+  });
+
+  // Metrics
+  const metricEl = document.getElementById('metricGrid');
+  data.metrics.forEach(m => {
+    const div = document.createElement('div');
+    div.className = 'metric';
+    div.innerHTML = `<div class="value ${m.color}">${m.value}</div><div class="label">${m.label}</div>`;
+    metricEl.appendChild(div);
+  });
+
+  // Risks
+  const riskEl = document.getElementById('riskList');
+  data.risks.forEach(r => {
+    const li = document.createElement('li');
+    li.className = 'risk-item';
+    li.innerHTML = `<div class="risk-header"><span class="risk-tag ${r.level}">${r.level === 'high' ? '高危' : r.level === 'medium' ? '中危' : '低危'}</span><span class="risk-name">${r.name}</span></div><div class="risk-desc">${r.desc}</div>`;
+    riskEl.appendChild(li);
+  });
+
+  // Actions
+  const actionEl = document.getElementById('actionList');
+  data.actions.forEach(a => {
+    const li = document.createElement('li');
+    li.innerHTML = `<span class="action-priority">${a.priority}</span>${a.text}`;
+    actionEl.appendChild(li);
+  });
+
+  // Radar chart
+  drawRadar();
+}
+
+function drawRadar() {
+  const canvas = document.getElementById('radarCanvas');
+  const ctx = canvas.getContext('2d');
+  const dpr = window.devicePixelRatio || 1;
+  canvas.width = 280 * dpr;
+  canvas.height = 280 * dpr;
+  canvas.style.width = '280px';
+  canvas.style.height = '280px';
+  ctx.scale(dpr, dpr);
+
+  const cx = 140, cy = 140, maxR = 110;
+  const n = data.principles.length;
+  const angleStep = (2 * Math.PI) / n;
+  const startAngle = -Math.PI / 2;
+
+  // Grid
+  ctx.strokeStyle = '#2d3140';
+  ctx.lineWidth = 0.5;
+  for (let ring = 1; ring <= 5; ring++) {
+    const r = (maxR / 5) * ring;
+    ctx.beginPath();
+    for (let i = 0; i <= n; i++) {
+      const angle = startAngle + i * angleStep;
+      const x = cx + r * Math.cos(angle);
+      const y = cy + r * Math.sin(angle);
+      i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+    }
+    ctx.stroke();
+  }
+
+  // Axes
+  for (let i = 0; i < n; i++) {
+    const angle = startAngle + i * angleStep;
+    ctx.beginPath();
+    ctx.moveTo(cx, cy);
+    ctx.lineTo(cx + maxR * Math.cos(angle), cy + maxR * Math.sin(angle));
+    ctx.stroke();
+  }
+
+  // Data polygon
+  ctx.fillStyle = 'rgba(211, 25, 42, 0.15)';
+  ctx.strokeStyle = '#d3192a';
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  data.principles.forEach((p, i) => {
+    const angle = startAngle + i * angleStep;
+    const r = (p.score / 100) * maxR;
+    const x = cx + r * Math.cos(angle);
+    const y = cy + r * Math.sin(angle);
+    i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+  });
+  ctx.closePath();
+  ctx.fill();
+  ctx.stroke();
+
+  // Data points
+  data.principles.forEach((p, i) => {
+    const angle = startAngle + i * angleStep;
+    const r = (p.score / 100) * maxR;
+    const x = cx + r * Math.cos(angle);
+    const y = cy + r * Math.sin(angle);
+    ctx.fillStyle = p.status === 'green' ? '#34a853' : p.status === 'yellow' ? '#fbbc04' : '#ea4335';
+    ctx.beginPath();
+    ctx.arc(x, y, 4, 0, 2 * Math.PI);
+    ctx.fill();
+  });
+
+  // Labels
+  ctx.fillStyle = '#9aa0a6';
+  ctx.font = '11px -apple-system, sans-serif';
+  ctx.textAlign = 'center';
+  data.principles.forEach((p, i) => {
+    const angle = startAngle + i * angleStep;
+    const lx = cx + (maxR + 18) * Math.cos(angle);
+    const ly = cy + (maxR + 18) * Math.sin(angle);
+    ctx.fillText(p.name, lx, ly + 4);
+  });
+}
+
+render();
+</script>
+</body>
+</html>
