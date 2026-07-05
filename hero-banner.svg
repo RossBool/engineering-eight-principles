@@ -1,0 +1,137 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a0e27"/>
+      <stop offset="50%" style="stop-color:#0d1333"/>
+      <stop offset="100%" style="stop-color:#0a0e27"/>
+    </linearGradient>
+    <linearGradient id="redGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#d3192a"/>
+      <stop offset="100%" style="stop-color:#ff3b4a"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="softGlow">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="textShadow">
+      <feDropShadow dx="0" dy="2" stdDeviation="6" flood-color="#d3192a" flood-opacity="0.4"/>
+    </filter>
+    <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
+      <path d="M 60 0 L 0 0 0 60" fill="none" stroke="rgba(100,140,200,0.06)" stroke-width="0.5"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  <g opacity="0.08" stroke="#4a7fff" stroke-width="0.5" fill="none">
+    <line x1="0" y1="100" x2="400" y2="0"/>
+    <line x1="800" y1="0" x2="1200" y2="150"/>
+    <line x1="0" y1="500" x2="350" y2="630"/>
+    <line x1="850" y1="630" x2="1200" y2="480"/>
+    <polygon points="100,50 200,20 250,80 180,110"/>
+    <polygon points="950,50 1050,30 1100,90 1020,120"/>
+    <polygon points="50,450 150,420 200,480 130,510"/>
+    <polygon points="1000,500 1100,470 1150,530 1080,560"/>
+    <circle cx="300" cy="100" r="40"/>
+    <circle cx="900" cy="530" r="35"/>
+  </g>
+  <g transform="translate(600, 580)" opacity="0.15">
+    <circle r="120" fill="none" stroke="#d3192a" stroke-width="0.5"/>
+    <circle r="80" fill="none" stroke="#d3192a" stroke-width="0.5"/>
+    <circle r="40" fill="none" stroke="#d3192a" stroke-width="0.5"/>
+    <line x1="0" y1="-120" x2="0" y2="120" stroke="#d3192a" stroke-width="0.3"/>
+    <line x1="-120" y1="0" x2="120" y2="0" stroke="#d3192a" stroke-width="0.3"/>
+    <path d="M0,0 L60,-104 A120,120 0 0,1 120,0 Z" fill="url(#redGlow)" opacity="0.3"/>
+    <line x1="0" y1="0" x2="60" y2="-104" stroke="#ff3b4a" stroke-width="1.5" filter="url(#glow)"/>
+  </g>
+  <g transform="translate(140, 140)" filter="url(#glow)">
+    <polygon points="25,0 50,14 50,43 25,57 0,43 0,14" fill="none" stroke="#d3192a" stroke-width="1.5" opacity="0.7"/>
+    <polygon points="25,8 42,18 42,39 25,49 8,39 8,18" fill="#d3192a" opacity="0.15"/>
+    <circle cx="25" cy="28.5" r="3" fill="#ff3b4a"/>
+  </g>
+  <g transform="translate(280, 90)" filter="url(#glow)">
+    <polygon points="25,0 50,14 50,43 25,57 0,43 0,14" fill="none" stroke="#d3192a" stroke-width="1.5" opacity="0.7"/>
+    <polygon points="25,8 42,18 42,39 25,49 8,39 8,18" fill="#d3192a" opacity="0.15"/>
+    <circle cx="25" cy="28.5" r="3" fill="#ff3b4a"/>
+  </g>
+  <g transform="translate(440, 70)" filter="url(#glow)">
+    <polygon points="25,0 50,14 50,43 25,57 0,43 0,14" fill="none" stroke="#d3192a" stroke-width="1.5" opacity="0.7"/>
+    <polygon points="25,8 42,18 42,39 25,49 8,39 8,18" fill="#d3192a" opacity="0.15"/>
+    <circle cx="25" cy="28.5" r="3" fill="#ff3b4a"/>
+  </g>
+  <g transform="translate(710, 70)" filter="url(#glow)">
+    <polygon points="25,0 50,14 50,43 25,57 0,43 0,14" fill="none" stroke="#d3192a" stroke-width="1.5" opacity="0.7"/>
+    <polygon points="25,8 42,18 42,39 25,49 8,39 8,18" fill="#d3192a" opacity="0.15"/>
+    <circle cx="25" cy="28.5" r="3" fill="#ff3b4a"/>
+  </g>
+  <g transform="translate(870, 90)" filter="url(#glow)">
+    <polygon points="25,0 50,14 50,43 25,57 0,43 0,14" fill="none" stroke="#d3192a" stroke-width="1.5" opacity="0.7"/>
+    <polygon points="25,8 42,18 42,39 25,49 8,39 8,18" fill="#d3192a" opacity="0.15"/>
+    <circle cx="25" cy="28.5" r="3" fill="#ff3b4a"/>
+  </g>
+  <g transform="translate(1010, 140)" filter="url(#glow)">
+    <polygon points="25,0 50,14 50,43 25,57 0,43 0,14" fill="none" stroke="#d3192a" stroke-width="1.5" opacity="0.7"/>
+    <polygon points="25,8 42,18 42,39 25,49 8,39 8,18" fill="#d3192a" opacity="0.15"/>
+    <circle cx="25" cy="28.5" r="3" fill="#ff3b4a"/>
+  </g>
+  <g transform="translate(1010, 420)" filter="url(#glow)">
+    <polygon points="25,0 50,14 50,43 25,57 0,43 0,14" fill="none" stroke="#d3192a" stroke-width="1.5" opacity="0.7"/>
+    <polygon points="25,8 42,18 42,39 25,49 8,39 8,18" fill="#d3192a" opacity="0.15"/>
+    <circle cx="25" cy="28.5" r="3" fill="#ff3b4a"/>
+  </g>
+  <g transform="translate(140, 420)" filter="url(#glow)">
+    <polygon points="25,0 50,14 50,43 25,57 0,43 0,14" fill="none" stroke="#d3192a" stroke-width="1.5" opacity="0.7"/>
+    <polygon points="25,8 42,18 42,39 25,49 8,39 8,18" fill="#d3192a" opacity="0.15"/>
+    <circle cx="25" cy="28.5" r="3" fill="#ff3b4a"/>
+  </g>
+  <g stroke="#d3192a" stroke-width="0.8" opacity="0.25" fill="none">
+    <line x1="165" y1="168" x2="305" y2="118"/>
+    <line x1="305" y1="118" x2="465" y2="98"/>
+    <line x1="465" y1="98" x2="735" y2="98"/>
+    <line x1="735" y1="98" x2="895" y2="118"/>
+    <line x1="895" y1="118" x2="1035" y2="168"/>
+    <line x1="1035" y1="168" x2="1035" y2="448"/>
+    <line x1="1035" y1="448" x2="165" y2="448"/>
+    <line x1="165" y1="448" x2="165" y2="168"/>
+    <line x1="165" y1="168" x2="735" y2="98" opacity="0.4"/>
+    <line x1="305" y1="118" x2="895" y2="118" opacity="0.4"/>
+    <line x1="465" y1="98" x2="1035" y2="448" opacity="0.3"/>
+    <line x1="165" y1="448" x2="735" y2="98" opacity="0.3"/>
+  </g>
+  <ellipse cx="600" cy="290" rx="320" ry="160" fill="#d3192a" opacity="0.03"/>
+  <text x="600" y="280" text-anchor="middle" font-family="'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', 'Helvetica Neue', Arial, sans-serif" font-size="88" font-weight="700" fill="white" filter="url(#textShadow)" letter-spacing="12">工程八原则</text>
+  <text x="600" y="330" text-anchor="middle" font-family="'SF Pro Display', 'Helvetica Neue', Arial, sans-serif" font-size="22" fill="rgba(255,255,255,0.6)" letter-spacing="8" font-weight="300">ENGINEERING EIGHT PRINCIPLES</text>
+  <line x1="380" y1="355" x2="820" y2="355" stroke="url(#redGlow)" stroke-width="1" opacity="0.5"/>
+  <text x="600" y="395" text-anchor="middle" font-family="'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', sans-serif" font-size="16" fill="rgba(255,255,255,0.45)" letter-spacing="4">多线并行推进 · 边界清晰可控 · 以交付推动共识</text>
+  <g transform="translate(180, 475)" opacity="0.5">
+    <rect x="0" y="0" width="90" height="28" rx="4" fill="none" stroke="#4a7fff" stroke-width="0.8"/>
+    <text x="45" y="18" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#4a7fff">立项研判</text>
+    <line x1="95" y1="14" x2="115" y2="14" stroke="#4a7fff" stroke-width="0.5"/>
+    <polygon points="113,10 120,14 113,18" fill="#4a7fff"/>
+    <rect x="120" y="0" width="90" height="28" rx="4" fill="none" stroke="#4a7fff" stroke-width="0.8"/>
+    <text x="165" y="18" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#4a7fff">迭代冲刺</text>
+    <line x1="215" y1="14" x2="235" y2="14" stroke="#4a7fff" stroke-width="0.5"/>
+    <polygon points="233,10 240,14 233,18" fill="#4a7fff"/>
+    <rect x="240" y="0" width="90" height="28" rx="4" fill="none" stroke="#4a7fff" stroke-width="0.8"/>
+    <text x="285" y="18" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#4a7fff">韧性加固</text>
+    <line x1="335" y1="14" x2="355" y2="14" stroke="#4a7fff" stroke-width="0.5"/>
+    <polygon points="353,10 360,14 353,18" fill="#4a7fff"/>
+    <rect x="360" y="0" width="90" height="28" rx="4" fill="none" stroke="#4a7fff" stroke-width="0.8"/>
+    <text x="405" y="18" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#4a7fff">质量收敛</text>
+    <line x1="455" y1="14" x2="475" y2="14" stroke="#4a7fff" stroke-width="0.5"/>
+    <polygon points="473,10 480,14 473,18" fill="#4a7fff"/>
+    <rect x="480" y="0" width="90" height="28" rx="4" fill="none" stroke="#4a7fff" stroke-width="0.8"/>
+    <text x="525" y="18" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#4a7fff">持续交付</text>
+    <line x1="575" y1="14" x2="595" y2="14" stroke="#4a7fff" stroke-width="0.5"/>
+    <polygon points="593,10 600,14 593,18" fill="#4a7fff"/>
+    <rect x="600" y="0" width="90" height="28" rx="4" fill="none" stroke="#4a7fff" stroke-width="0.8"/>
+    <text x="645" y="18" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#4a7fff">上线收尾</text>
+  </g>
+  <g transform="translate(540, 530)">
+    <rect width="120" height="24" rx="12" fill="rgba(211,25,42,0.2)" stroke="#d3192a" stroke-width="0.5"/>
+    <text x="60" y="16" text-anchor="middle" font-family="'SF Mono', monospace" font-size="11" fill="#ff6b7a">v1.2.0 · MIT</text>
+  </g>
+</svg>
