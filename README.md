@@ -39,13 +39,32 @@
 
 ## 六阶段生命周期
 
-```
-阶段 0           阶段 1           阶段 2           阶段 3           阶段 4           阶段 5
-立项研判    →    迭代冲刺    →    韧性加固    →    质量收敛    →    持续交付    →    上线收尾
-(Inception)      (Sprint)         (Resilience)     (Quality)        (Delivery)       (Launch)
+```mermaid
+flowchart LR
+    P0["<b>阶段 0 · 立项研判</b><br/>Inception"]
+    P1["<b>阶段 1 · 迭代冲刺</b><br/>Sprint"]
+    P2["<b>阶段 2 · 韧性加固</b><br/>Resilience"]
+    P3["<b>阶段 3 · 质量收敛</b><br/>Quality"]
+    P4["<b>阶段 4 · 持续交付</b><br/>Delivery"]
+    P5["<b>阶段 5 · 上线收尾</b><br/>Launch"]
+
+    P0 -- "底线目标明确<br/>核心团队就位" --> P1
+    P1 -- "集成测试通过<br/>性能基线建立" --> P2
+    P2 -- "单点故障消除<br/>故障演练通过" --> P3
+    P3 -- "质量基线达标<br/>安全审计通过" --> P4
+    P4 -- "版本范围确认<br/>需求冻结" --> P5
+
+    P4 -. "新版本迭代" .-> P1
+
+    style P0 fill:#e3f2fd,stroke:#1976d2,stroke-width:2px,color:#0d47a1
+    style P1 fill:#e8f5e9,stroke:#388e3c,stroke-width:2px,color:#1b5e20
+    style P2 fill:#fff3e0,stroke:#f57c00,stroke-width:2px,color:#e65100
+    style P3 fill:#fce4ec,stroke:#d32f2f,stroke-width:2px,color:#b71c1c
+    style P4 fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px,color:#4a148c
+    style P5 fill:#e0f2f1,stroke:#00897b,stroke-width:2px,color:#004d40
 ```
 
-每个阶段都有严格的**入口条件**、**核心动作**和**出口门禁**。阶段不可跳过，但可以合并（小团队）或回退（条件变化时）。详细操作指南见 [`phases.md`](./phases.md)。
+每个阶段都有严格的**入口条件**、**核心动作**和**出口门禁**。阶段不可跳过，但可以合并（小团队）或回退（条件变化时）。阶段 4 与阶段 1 之间可以循环——当产品进入下一版本迭代时，从持续交付回到迭代冲刺。详细操作指南见 [`phases.md`](./phases.md)。
 
 ### 按团队规模的精简路径
 
@@ -106,9 +125,9 @@ engineering-eight-principles/
 
 首次使用时，回答三个问题：
 
-1. **项目是新立项还是进行中？** — 新立项从阶段 0 开始，进行中先做现状诊断。
+ **项目是新立项还是进行中？** — 新立项从阶段 0 开始，进行中先做现状诊断。
 2. **你需要什么？** — 诊断、规划、可视化还是导航。
-3. **当前最大痛点是什么？** — 用于优先扫描相关原则。
+3.  1. **当前最大痛点是什么？** — 用于优先扫描相关原则。
 
 ---
 
@@ -122,7 +141,7 @@ engineering-eight-principles/
 cp -R engineering-eight-principles/ ~/.qoderwork/skills/parallel-front/
 ```
 
-安装后即可在 QoderWork 中使用。触发关键词：“三八线协议”、“parallel-front”、“项目诊断”、“执行方案”、“工程八原则”等。
+安装后即可在 QoderWork 中使用。触发关键词：“工程八原则”等parallel-front”、“项目诊断”、“执行方案”等。
 
 ### 独立使用
 
@@ -139,7 +158,7 @@ window.__EIGHT_PRINCIPLES_DATA__ = {
   projectName: "我的项目",
   overallScore: 72,           // 0-100
   overallStatus: "warn",      // ok | warn | alert
-  currentPhase: 2,            // 0-indexed（显示为阶段 3）
+  currentPhase: 2,            // 0-indexed（显示为  3）
   phases: [
     { name: "立项研判", status: "completed" },
     { name: "迭代冲刺", status: "completed" },
@@ -168,7 +187,7 @@ window.__EIGHT_PRINCIPLES_DATA__ = {
 };
 ```
 
-**评分阈值：** `score >= 75` → ok（绿色），`55–74` → warn（黄色），`< 55` → alert（红色）。
+**评分阈值：** `score >= 75` → ok（绿色），55–74` → warn（黄色），`< 55` → alert（红色）。
 
 缺失字段自动回退到内置默认值——模板不会渲染 `undefined`。
 
