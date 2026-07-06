@@ -144,10 +144,10 @@ engineering-eight-principles/
 将整个目录复制到 QoderWork 技能目录：
 
 ```bash
-cp -R engineering-eight-principles/ ~/.qoderwork/skills/parallel-front/
+cp -R engineering-eight-principles/ ~/.qoderwork/skills/engineering-eight-principles/
 ```
 
-安装后即可在 QoderWork 中使用。触发关键词："三八线协议"、"parallel-front"、"项目诊断"、"执行方案"、"工程八原则"等。
+安装后即可在 QoderWork 中使用。触发关键词："工程八原则"、"engineering-eight-principles"、"项目诊断"、"执行方案"、"阶段规划"等。
 
 ### 独立使用
 
